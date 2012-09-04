@@ -1,0 +1,357 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AD0980D515F1236000752249 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD0980D415F1236000752249 /* UIKit.framework */; };
+		AD0980D715F1236000752249 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD0980D615F1236000752249 /* Foundation.framework */; };
+		AD0980D915F1236000752249 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD0980D815F1236000752249 /* CoreGraphics.framework */; };
+		AD0980DB15F1236000752249 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD0980DA15F1236000752249 /* CoreData.framework */; };
+		AD0980E115F1236000752249 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD0980DF15F1236000752249 /* InfoPlist.strings */; };
+		AD0980E315F1236000752249 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0980E215F1236000752249 /* main.m */; };
+		AD0980E715F1236000752249 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0980E615F1236000752249 /* AppDelegate.m */; };
+		AD0980EA15F1236000752249 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD0980E815F1236000752249 /* MainStoryboard.storyboard */; };
+		AD0980ED15F1236000752249 /* HappyEntries.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD0980EB15F1236000752249 /* HappyEntries.xcdatamodeld */; };
+		AD0980F015F1236000752249 /* HappyEntriesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0980EF15F1236000752249 /* HappyEntriesListViewController.m */; };
+		AD0980F315F1236000752249 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0980F215F1236000752249 /* DetailViewController.m */; };
+		AD0980FC15F1257800752249 /* SingleEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0980FB15F1257800752249 /* SingleEntry.m */; };
+		AD0980FF15F127CC00752249 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0980FE15F127CC00752249 /* MasterViewController.m */; };
+		AD9F527515F52C1500B63685 /* EntryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9F527415F52C1500B63685 /* EntryTableViewController.m */; };
+		AD9F527915F5783E00B63685 /* EntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9F527815F5783E00B63685 /* EntryCell.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AD0980D015F1236000752249 /* HappyEntries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HappyEntries.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD0980D415F1236000752249 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AD0980D615F1236000752249 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AD0980D815F1236000752249 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AD0980DA15F1236000752249 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		AD0980DE15F1236000752249 /* HappyEntries-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HappyEntries-Info.plist"; sourceTree = "<group>"; };
+		AD0980E015F1236000752249 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AD0980E215F1236000752249 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AD0980E415F1236000752249 /* HappyEntries-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HappyEntries-Prefix.pch"; sourceTree = "<group>"; };
+		AD0980E515F1236000752249 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AD0980E615F1236000752249 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AD0980E915F1236000752249 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		AD0980EC15F1236000752249 /* HappyEntries.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HappyEntries.xcdatamodel; sourceTree = "<group>"; };
+		AD0980EE15F1236000752249 /* HappyEntriesListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HappyEntriesListViewController.h; sourceTree = "<group>"; };
+		AD0980EF15F1236000752249 /* HappyEntriesListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HappyEntriesListViewController.m; sourceTree = "<group>"; };
+		AD0980F115F1236000752249 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		AD0980F215F1236000752249 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		AD0980FA15F1257800752249 /* SingleEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleEntry.h; sourceTree = "<group>"; };
+		AD0980FB15F1257800752249 /* SingleEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleEntry.m; sourceTree = "<group>"; };
+		AD0980FD15F127CC00752249 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		AD0980FE15F127CC00752249 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		AD9F527315F52C1500B63685 /* EntryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntryTableViewController.h; sourceTree = "<group>"; };
+		AD9F527415F52C1500B63685 /* EntryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntryTableViewController.m; sourceTree = "<group>"; };
+		AD9F527715F5783E00B63685 /* EntryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntryCell.h; sourceTree = "<group>"; };
+		AD9F527815F5783E00B63685 /* EntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntryCell.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AD0980CD15F1236000752249 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD0980D515F1236000752249 /* UIKit.framework in Frameworks */,
+				AD0980D715F1236000752249 /* Foundation.framework in Frameworks */,
+				AD0980D915F1236000752249 /* CoreGraphics.framework in Frameworks */,
+				AD0980DB15F1236000752249 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AD0980C515F1236000752249 = {
+			isa = PBXGroup;
+			children = (
+				AD0980DC15F1236000752249 /* HappyEntries */,
+				AD0980D315F1236000752249 /* Frameworks */,
+				AD0980D115F1236000752249 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AD0980D115F1236000752249 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AD0980D015F1236000752249 /* HappyEntries.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AD0980D315F1236000752249 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AD0980D415F1236000752249 /* UIKit.framework */,
+				AD0980D615F1236000752249 /* Foundation.framework */,
+				AD0980D815F1236000752249 /* CoreGraphics.framework */,
+				AD0980DA15F1236000752249 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AD0980DC15F1236000752249 /* HappyEntries */ = {
+			isa = PBXGroup;
+			children = (
+				AD0980E515F1236000752249 /* AppDelegate.h */,
+				AD0980E615F1236000752249 /* AppDelegate.m */,
+				AD0980E815F1236000752249 /* MainStoryboard.storyboard */,
+				AD0980FD15F127CC00752249 /* MasterViewController.h */,
+				AD0980FE15F127CC00752249 /* MasterViewController.m */,
+				AD9F527615F52ED100B63685 /* EntryTable */,
+				AD9F526E15F52B5200B63685 /* NotUsing */,
+				AD0980F915F1236700752249 /* model */,
+				AD0980DD15F1236000752249 /* Supporting Files */,
+			);
+			path = HappyEntries;
+			sourceTree = "<group>";
+		};
+		AD0980DD15F1236000752249 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AD0980DE15F1236000752249 /* HappyEntries-Info.plist */,
+				AD0980DF15F1236000752249 /* InfoPlist.strings */,
+				AD0980E215F1236000752249 /* main.m */,
+				AD0980E415F1236000752249 /* HappyEntries-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AD0980F915F1236700752249 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				AD0980EB15F1236000752249 /* HappyEntries.xcdatamodeld */,
+				AD0980FA15F1257800752249 /* SingleEntry.h */,
+				AD0980FB15F1257800752249 /* SingleEntry.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		AD9F526E15F52B5200B63685 /* NotUsing */ = {
+			isa = PBXGroup;
+			children = (
+				AD0980F215F1236000752249 /* DetailViewController.m */,
+				AD0980F115F1236000752249 /* DetailViewController.h */,
+				AD0980EF15F1236000752249 /* HappyEntriesListViewController.m */,
+				AD0980EE15F1236000752249 /* HappyEntriesListViewController.h */,
+			);
+			name = NotUsing;
+			sourceTree = "<group>";
+		};
+		AD9F527615F52ED100B63685 /* EntryTable */ = {
+			isa = PBXGroup;
+			children = (
+				AD9F527315F52C1500B63685 /* EntryTableViewController.h */,
+				AD9F527415F52C1500B63685 /* EntryTableViewController.m */,
+				AD9F527715F5783E00B63685 /* EntryCell.h */,
+				AD9F527815F5783E00B63685 /* EntryCell.m */,
+			);
+			name = EntryTable;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AD0980CF15F1236000752249 /* HappyEntries */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD0980F615F1236000752249 /* Build configuration list for PBXNativeTarget "HappyEntries" */;
+			buildPhases = (
+				AD0980CC15F1236000752249 /* Sources */,
+				AD0980CD15F1236000752249 /* Frameworks */,
+				AD0980CE15F1236000752249 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HappyEntries;
+			productName = HappyEntries;
+			productReference = AD0980D015F1236000752249 /* HappyEntries.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AD0980C715F1236000752249 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = AD0980CA15F1236000752249 /* Build configuration list for PBXProject "HappyEntries" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AD0980C515F1236000752249;
+			productRefGroup = AD0980D115F1236000752249 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AD0980CF15F1236000752249 /* HappyEntries */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AD0980CE15F1236000752249 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD0980E115F1236000752249 /* InfoPlist.strings in Resources */,
+				AD0980EA15F1236000752249 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AD0980CC15F1236000752249 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD0980E315F1236000752249 /* main.m in Sources */,
+				AD0980E715F1236000752249 /* AppDelegate.m in Sources */,
+				AD0980ED15F1236000752249 /* HappyEntries.xcdatamodeld in Sources */,
+				AD0980F015F1236000752249 /* HappyEntriesListViewController.m in Sources */,
+				AD0980F315F1236000752249 /* DetailViewController.m in Sources */,
+				AD0980FC15F1257800752249 /* SingleEntry.m in Sources */,
+				AD0980FF15F127CC00752249 /* MasterViewController.m in Sources */,
+				AD9F527515F52C1500B63685 /* EntryTableViewController.m in Sources */,
+				AD9F527915F5783E00B63685 /* EntryCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AD0980DF15F1236000752249 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD0980E015F1236000752249 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AD0980E815F1236000752249 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD0980E915F1236000752249 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AD0980F415F1236000752249 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AD0980F515F1236000752249 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AD0980F715F1236000752249 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HappyEntries/HappyEntries-Prefix.pch";
+				INFOPLIST_FILE = "HappyEntries/HappyEntries-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AD0980F815F1236000752249 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HappyEntries/HappyEntries-Prefix.pch";
+				INFOPLIST_FILE = "HappyEntries/HappyEntries-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AD0980CA15F1236000752249 /* Build configuration list for PBXProject "HappyEntries" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD0980F415F1236000752249 /* Debug */,
+				AD0980F515F1236000752249 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AD0980F615F1236000752249 /* Build configuration list for PBXNativeTarget "HappyEntries" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD0980F715F1236000752249 /* Debug */,
+				AD0980F815F1236000752249 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AD0980EB15F1236000752249 /* HappyEntries.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AD0980EC15F1236000752249 /* HappyEntries.xcdatamodel */,
+			);
+			currentVersion = AD0980EC15F1236000752249 /* HappyEntries.xcdatamodel */;
+			path = HappyEntries.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = AD0980C715F1236000752249 /* Project object */;
+}
