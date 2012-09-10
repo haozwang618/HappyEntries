@@ -20,7 +20,15 @@
 @synthesize entryArray;
 @synthesize categorizedEntryArrays;
 @synthesize managedObjectContext;
+@synthesize headerView;
+@synthesize keyArray;
+@synthesize dateModePicker;
+
+DateMode currentMode;
 NSDateFormatter *dateFormat;
+NSArray* dateModeTitles;
+NSString * selectedOrganize;
+bool showPicker =false;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -41,6 +49,9 @@ NSDateFormatter *dateFormat;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"MM/dd/yyyy hh:mm:ssa"];
+    currentMode = ALL;
+    
+    dateModeTitles=[[NSArray alloc] initWithObjects:@"ALL", @"DAY", @"WEEK", @"MONTH", @"YEAR", nil];
     
     AppDelegate * delegate = [[UIApplication sharedApplication] delegate];
     managedObjectContext = [delegate managedObjectContext];
@@ -49,12 +60,17 @@ NSDateFormatter *dateFormat;
     [request setEntity:entityDesc];
     NSError *error;
     entryArray = [[NSMutableArray alloc] initWithArray:[managedObjectContext executeFetchRequest:request error:&error] copyItems:NO];
+    
+    [entryArray sortUsingComparator:^NSComparisonResult(SingleEntry * first, SingleEntry * second){
+        return [second.entryDate compare: first.entryDate];
+                  }];
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
    
     [super viewDidAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,14 +85,47 @@ NSDateFormatter *dateFormat;
 {
     //#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 1;
+    if (currentMode == ALL) {
+        return 1;
+    }
+    else
+    {
+        return [keyArray count];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [entryArray count];
+    if (currentMode == ALL)
+    {
+        return [entryArray count];
+    }
+    else
+    {
+        return [[categorizedEntryArrays objectForKey:[keyArray objectAtIndex:section]] count];
+    }
+}
+
+-(UIView*) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (headerView == nil) {
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    }
+    
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 50;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 50;
 }
 
 -(EntryCell *) makeEntryCell:(SingleEntry*) thisEntry
@@ -123,11 +172,23 @@ NSDateFormatter *dateFormat;
     if (entryArray == nil) {
         return cell;
     }
-    SingleEntry * thisEntry =[entryArray objectAtIndex:[indexPath row]];
     
+    SingleEntry * thisEntry;
+    if(currentMode == ALL)
+    {
+        thisEntry =[entryArray objectAtIndex:[indexPath row]];
+    
+        
+    }
+    else
+    {
+        id key = [keyArray objectAtIndex:[indexPath section]];
+        thisEntry = [[categorizedEntryArrays objectForKey:key] objectAtIndex:[indexPath row]];
+    }
+                     
     cell = [self makeEntryCell:thisEntry];
-    // Configure the cell...
-    
+                     // Configure the cell...
+                     
     return cell;
 }
 
@@ -183,4 +244,228 @@ NSDateFormatter *dateFormat;
      */
 }
 
+//-(UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    if (<#condition#>) {
+//        <#statements#>
+//    }
+//}
+
+#pragma mark - Date Organization Mode Setup
+-(void)organizeBy:(DateMode) thisMode
+{
+    NSCalendar * calendar = [NSCalendar currentCalendar];
+    
+    if(keyArray == nil)
+    {
+        keyArray = [[NSMutableArray alloc] init];
+    }
+    else
+    {
+        [keyArray removeAllObjects];
+    }
+    
+    if (categorizedEntryArrays == nil) {
+        categorizedEntryArrays = [[NSMutableDictionary alloc] init];
+    }
+    else
+    {
+        [categorizedEntryArrays removeAllObjects];
+    }
+    
+    NSMutableArray * tempEntries = [[NSMutableArray alloc] initWithArray:entryArray copyItems:NO];
+    NSUInteger flag;
+    NSString * key;
+    switch (thisMode) {
+        case DAY:
+            flag = NSDayCalendarUnit | NSWeekCalendarUnit |NSMonthCalendarUnit|NSYearCalendarUnit;
+            key = [NSString stringWithFormat:@"DAY"];
+            break;
+        case WEEK:
+            flag = NSWeekCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit;
+            key = [NSString stringWithFormat:@"WEEK"];
+            break;
+        case MONTH:
+            flag = NSMonthCalendarUnit|NSYearCalendarUnit;
+            key = [NSString stringWithFormat:@"MONTH"];
+            break;
+        case YEAR:
+            flag = NSYearCalendarUnit;
+            key = [NSString stringWithFormat:@"YEAR"];
+            break;
+        default:
+            break;
+    }
+    /////////////////////////////////////////////////////
+    SingleEntry * pivotEntry;
+    NSMutableArray * segmentedArray;
+    
+    NSString * serialKey;
+    bool pivotSet = false;
+    int secNum=0;
+    for(int i =0; i< [tempEntries count]; ++i)
+    {
+        if ((i == 0)&&(!pivotSet))
+        {
+            pivotEntry = [tempEntries objectAtIndex:i];
+            [tempEntries removeObject:pivotEntry];
+            i =-1;
+            
+            segmentedArray = [[NSMutableArray alloc]init];
+            [segmentedArray addObject:pivotEntry];
+            
+            serialKey = [NSString stringWithFormat:@"%@%d",key,secNum];
+            [keyArray addObject:serialKey];
+            pivotSet = true;
+            continue;
+        }
+        
+        SingleEntry* thisEntry = [tempEntries objectAtIndex:i];
+        NSDateComponents * pivotComponent = [calendar components:flag fromDate:pivotEntry.entryDate];
+        NSDateComponents * entryComponent = [calendar components:flag fromDate:thisEntry.entryDate];
+        
+        bool compare;
+        switch (thisMode) {
+            case DAY:
+                compare = (([pivotComponent day] == [entryComponent day]) && ([pivotComponent week] == [entryComponent week]) && ([pivotComponent month] == [entryComponent month]) && ([pivotComponent year] == [entryComponent year]));
+                break;
+            case WEEK:
+                compare = (([pivotComponent week] == [entryComponent week]) && ([pivotComponent month] == [entryComponent month]) && ([pivotComponent year] == [entryComponent year]));
+                break;
+            case MONTH:
+                compare = (([pivotComponent month] == [entryComponent month])&&([pivotComponent year] == [entryComponent year]));
+                break;
+            case YEAR:
+                compare = [pivotComponent year] == [entryComponent year];
+                break;
+        }
+        
+        if(compare)
+        {
+            [segmentedArray addObject:thisEntry];
+            [tempEntries removeObject:thisEntry];
+            if([tempEntries count] == 0)
+            {
+                [categorizedEntryArrays setObject:segmentedArray forKey:serialKey];
+            }
+            i=-1;
+            continue;
+        }
+        else
+        {
+            [categorizedEntryArrays setObject:segmentedArray forKey:serialKey];
+            segmentedArray =nil;
+            ++secNum;
+            i=-1;
+            pivotSet = false;
+            
+        }
+    }
+    
+}
+
+-(void) organizeTable
+{
+    if (currentMode == ALL)
+    {
+        return;
+    }
+    else
+    {
+        [self organizeBy:currentMode];
+    }
+    [self.tableView reloadData];
+}
+
+-(IBAction)organizeButtonPress:(id)sender
+{
+    UIButton* thisButton= (UIButton*)sender;
+    if (dateModePicker == nil) {
+            dateModePicker = [[UIPickerView alloc] init];
+            [dateModePicker setDataSource:self];
+            [dateModePicker setDelegate:self];
+            dateModePicker.showsSelectionIndicator = YES;
+            
+            [self.view addSubview:dateModePicker];
+            CGPoint orig= dateModePicker.frame.origin;
+            CGSize size = dateModePicker.frame.size;
+            dateModePicker.frame = CGRectMake(0, orig.y+2000, size.width, size.height);
+        }
+    
+    if (showPicker) {
+        [UIView animateWithDuration:1.0f
+                              delay:0
+                            options: UIViewAnimationCurveEaseOut
+                         animations:^{
+                             CGPoint orig= dateModePicker.frame.origin;
+                             CGSize size = dateModePicker.frame.size;
+                              dateModePicker.frame = CGRectMake(0, orig.y+2000, size.width, size.height);
+                             //dateModePicker.frame = CGRectMake(0, 0, sizeOrig.width, sizeOrig.height);
+                         }
+                         completion:^(BOOL finished){
+                             showPicker = false;
+                             [thisButton setTitle:@"Organize By:" forState:UIControlStateNormal];
+                             if([selectedOrganize isEqualToString:[dateModeTitles objectAtIndex:0]])
+                             {
+                                 currentMode = ALL;
+                             }
+                             else if([selectedOrganize isEqualToString:[dateModeTitles objectAtIndex:1]])
+                             {
+                                 currentMode = DAY;
+                             }
+                             else if([selectedOrganize isEqualToString:[dateModeTitles objectAtIndex:2]])
+                             {
+                                 currentMode = WEEK;
+                             }
+                             else if([selectedOrganize isEqualToString:[dateModeTitles objectAtIndex:3]])
+                             {
+                                 currentMode = MONTH;
+                             }
+                             else if([selectedOrganize isEqualToString:[dateModeTitles objectAtIndex:4]])
+                             {
+                                 currentMode = YEAR;
+                             }
+                            [self organizeTable];
+                         }];
+    }
+    else
+    {
+        [UIView animateWithDuration:1.0f
+                          delay:0
+                        options: UIViewAnimationCurveEaseOut
+                     animations:^{
+                         //CGSize sizeOrig = dateModePicker.frame.size;
+                         //dateModePicker.frame = CGRectMake(0, 0, 0, 0);
+                         CGSize size = dateModePicker.frame.size;
+                         dateModePicker.frame = CGRectMake(0, 0, size.width, size.height);
+                     }
+                     completion:^(BOOL finished){
+                         showPicker = true;
+                         [thisButton setTitle:@"Done" forState:UIControlStateNormal];
+                     }];
+    }
+    //showPicker = ~showPicker;
+    
+}
+
+
+-(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+-(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [dateModeTitles count];
+}
+
+-(NSString*) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [dateModeTitles objectAtIndex:row];
+}
+
+-(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    selectedOrganize = [dateModeTitles objectAtIndex:row];
+}
 @end
