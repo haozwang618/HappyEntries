@@ -79,6 +79,45 @@ bool showPicker =false;
     // Dispose of any resources that can be recreated.
 }
 
+-(float)averageRating: (NSArray *)entryList
+{
+    float sum=0;
+    
+    for (SingleEntry* currentEntry in entryList) {
+        sum += [currentEntry.entryRating floatValue];
+    }
+    
+    if ([entryList count]==0) {
+        return 0;
+    }
+    else
+    {
+        return sum/[entryList count];
+    }
+}
+
+-(UIColor*)colorByScore:(float) score
+{
+    if ( score< 25) {
+        return [UIColor redColor];
+    }
+    else if (score < 45) {
+        return[UIColor purpleColor];
+    }
+    else if((score > 55) && (score  < 75))
+    {
+        return [UIColor blueColor];
+    }
+    else if (score >75)
+    {
+        return [UIColor cyanColor];
+    }
+    else
+    {
+        return [UIColor greenColor];
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -108,13 +147,18 @@ bool showPicker =false;
     }
 }
 
--(UIView*) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+-(UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (headerView == nil) {
-        headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    UIView * myHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    if (currentMode == ALL) {
+        [myHeaderView setBackgroundColor:[self colorByScore:[self averageRating:entryArray]]];
+    }
+    else
+    {
+        [myHeaderView setBackgroundColor:[self colorByScore:[self averageRating:[categorizedEntryArrays objectForKey:[keyArray objectAtIndex:section]]]]];
     }
     
-    return headerView;
+    return myHeaderView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -125,7 +169,7 @@ bool showPicker =false;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 50;
+    return 0;
 }
 
 -(EntryCell *) makeEntryCell:(SingleEntry*) thisEntry
@@ -134,29 +178,9 @@ bool showPicker =false;
     EntryCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     [cell.titleLabel setText:thisEntry.entryTitle];
     
-    if ( [thisEntry.entryRating intValue]< 25) {
-        [cell.titleLabel setTextColor:[UIColor redColor]];
-        [cell.scoreLabel setTextColor:[UIColor redColor]];
-    }
-    else if ([thisEntry.entryRating intValue] < 45) {
-        [cell.titleLabel setTextColor:[UIColor purpleColor]];
-        [cell.scoreLabel setTextColor:[UIColor purpleColor]];
-    }
-    else if(([thisEntry.entryRating intValue] > 55) && ([thisEntry.entryRating intValue]  < 75))
-    {
-        [cell.titleLabel setTextColor:[UIColor blueColor]];
-        [cell.scoreLabel setTextColor:[UIColor blueColor]];
-    }
-    else if ([thisEntry.entryRating intValue] >75)
-    {
-        [cell.titleLabel setTextColor:[UIColor cyanColor]];
-        [cell.scoreLabel setTextColor:[UIColor cyanColor]];
-    }
-    else
-    {
-        [cell.titleLabel setTextColor:[UIColor greenColor]];
-        [cell.scoreLabel setTextColor:[UIColor greenColor]];
-    }
+    [cell.scoreLabel setTextColor:[self colorByScore:[thisEntry.entryRating floatValue]]];
+    [cell.titleLabel setTextColor:[self colorByScore:[thisEntry.entryRating floatValue]]];
+    
     NSString* dateString= [dateFormat stringFromDate:thisEntry.entryDate];
     [cell.dateLabel setText:dateString];
     [cell.reasonTextView setText:thisEntry.entryBody];
@@ -426,6 +450,7 @@ bool showPicker =false;
                                  currentMode = YEAR;
                              }
                             [self organizeTable];
+                             [dateModePicker setHidden:YES];
                          }];
     }
     else
@@ -438,10 +463,13 @@ bool showPicker =false;
                          //dateModePicker.frame = CGRectMake(0, 0, 0, 0);
                          CGSize size = dateModePicker.frame.size;
                          dateModePicker.frame = CGRectMake(0, 0, size.width, size.height);
+                        [dateModePicker setHidden:NO];
                      }
                      completion:^(BOOL finished){
                          showPicker = true;
                          [thisButton setTitle:@"Done" forState:UIControlStateNormal];
+                        
+                         [self.view bringSubviewToFront:dateModePicker];
                      }];
     }
     //showPicker = ~showPicker;
